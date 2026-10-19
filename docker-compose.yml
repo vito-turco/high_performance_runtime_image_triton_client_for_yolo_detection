@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Triton Inference Server Container
+  triton-server:
+    image: nvcr.io/nvidia/tritonserver:26.09-py3
+    container_name: triton_server
+    command: [ "tritonserver", "--model-repository=/models" ]
+    ports:
+      - "8003:8000"
+      - "8001:8001"
+      - "8002:8002"
+    volumes:
+      - ./models:/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ '0' ]
+              capabilities: [ gpu ]
+
+  # Client Container
+
+  rtsp-app1:
+    image: rtsp-cuda-triton-app:v0.1
+    container_name: rtsp_cuda_triton_app1
+    restart: "no"
+    volumes:
+      - ./outputs:/outputs
+    command:
+      - "rtsp://user:passwd@address:554/stream1"
+      - "front_camera1"
+      - "yolo26n_onnx"
+    depends_on:
+      - triton-server
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: [ '0' ]
+              capabilities: [ gpu ]
