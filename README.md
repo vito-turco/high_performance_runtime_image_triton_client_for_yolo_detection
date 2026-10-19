@@ -50,3 +50,6 @@ If /dev/video0 only lists uncompressed raw formats (such as YUYV, MJPG, or BGR3)
 
 To check the supported webcam streams use
 > v4l2-ctl --list-formats-ext -d /dev/video0
+
+# License
+Please refer to the license files from NVIDIA Video Codec SDK, NVIDIA CV-CUDA,  NVIDIA TRITON and ultralytics.
