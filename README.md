@@ -66,7 +66,7 @@ sameapp:\
 &ensp; image: sameimage\
 &ensp;&ensp;runtime: nvidia\
 &ensp;&ensp;environment:\
-&ensp;&ensp;&ensp;&ensp;- NVIDIA_VISIBLE_DEVICES=0
+&ensp;&ensp;&ensp;&ensp;- CUDA_VISIBLE_DEVICES=0
 
 # License
 Please refer to the license files from NVIDIA Video Codec SDK, NVIDIA CV-CUDA,  NVIDIA TRITON and ultralytics.
