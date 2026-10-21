@@ -64,7 +64,7 @@ in docker compose with
 > services:
 sameapp:\
 &ensp; image: sameimage\
-&ensp;&ensp;runtime: nvidia\
+&ensp; runtime: nvidia\
 &ensp;&ensp;environment:\
 &ensp;&ensp;&ensp;&ensp;- CUDA_VISIBLE_DEVICES=0
 
