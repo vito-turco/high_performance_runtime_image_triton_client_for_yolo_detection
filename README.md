@@ -38,18 +38,35 @@ Finally, run
 > docker compose up
 
 ### Note: 
-If you want to use your usb webcam for stream use /dev/video0 instead of an rtsp connection string. Before doing it, assure your webcam supports 
+*    If you want to use your usb webcam for stream use /dev/video0 instead of an rtsp connection string. Before doing it, assure your webcam supports 
+    
+        H.264 (often listed as H264 or AVC1) — Most recommended for compatibility.
+        
+        HEVC (often listed as HEVC or H265)
+        
+        VP8 / VP9
+        
+        If /dev/video0 only lists uncompressed raw formats (such as YUYV, MJPG, or BGR3), NVDEC hardware decoding cannot be used directly on those raw pixel frames because NVDEC only accepts compressed video bitstreams.
+        
+        To check the supported webcam streams use
+        > v4l2-ctl --list-formats-ext -d /dev/video0
+  * In some legacy docker + nvidia-docker-runtime configurations you might need to replace
+        
+       > deploy: \
+    &ensp; resources:\
+    &ensp;&ensp;&ensp;   reservations:\
+    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;devices:\
+    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;- driver: nvidia\
+    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;device_ids: [ '0' ]\
+    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;capabilities: [ gpu ]\
 
-H.264 (often listed as H264 or AVC1) — Most recommended for compatibility.
-
-HEVC (often listed as HEVC or H265)
-
-VP8 / VP9
-
-If /dev/video0 only lists uncompressed raw formats (such as YUYV, MJPG, or BGR3), NVDEC hardware decoding cannot be used directly on those raw pixel frames because NVDEC only accepts compressed video bitstreams.
-
-To check the supported webcam streams use
-> v4l2-ctl --list-formats-ext -d /dev/video0
+in docker compose with
+> services:
+sameapp:\
+&ensp; image: sameimage\
+&ensp;&ensp;runtime: nvidia\
+&ensp;&ensp;environment:\
+&ensp;&ensp;&ensp;&ensp;- NVIDIA_VISIBLE_DEVICES=0
 
 # License
 Please refer to the license files from NVIDIA Video Codec SDK, NVIDIA CV-CUDA,  NVIDIA TRITON and ultralytics.
