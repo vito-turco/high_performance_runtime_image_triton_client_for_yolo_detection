@@ -28,7 +28,7 @@ GPU compute capability greater than 6 is required.
 
 # Getting started
 Since it is a demonstrator of no explicit practical use for other developers, I decided to host the tar of the docker image on my personal cloud, instead of pushing it on some public registry, squandering their storage.
-The tar is available at [onedrive](https://1drv.ms/u/c/472a7e06093eda41/IQCE_qZGDxndTaVZNCtDfpwaASqMHymQ25PV7gnIDGLEPLk?e=AWDge7) and the image can be loaded into your local registry with
+The tar is available at [onedrive](https://1drv.ms/f/c/472a7e06093eda41/IgBzWKl_0AlQQLSjqizmmzJVAeECChLI4NX4gq_BwK0AL2Y?e=fpFQHK) and the image can be loaded into your local registry with
 > docker load -i rtsp-cuda-triton-client-app-v0.1.tar
 
 Once the client image is loaded, clone this repository and replicate the client service in docker-compose.yml for each stream you want to use (i.e. a client per camera). \
